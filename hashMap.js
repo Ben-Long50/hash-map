@@ -1,4 +1,5 @@
-import primeGen from "fast-prime-gen";
+import primeGen from 'fast-prime-gen';
+
 const generator = primeGen();
 
 class HashMap {
@@ -14,14 +15,13 @@ class HashMap {
     for (let i = 0; i < key.length; i++) {
       hashCode = primeNumber * hashCode + key.charCodeAt(i);
     }
-    hashCode = hashCode % this.tableSize;
+    hashCode %= this.tableSize;
     return hashCode;
   }
 
   resizeTable() {
     this.tableSize = generator.next().value;
     this.hashTable = new Array(this.tableSize);
-    console.log(this.tableSize);
   }
 
   rehashElements() {
@@ -39,13 +39,11 @@ class HashMap {
     if (this.hashTable[hashCode] && this.hashTable[hashCode].key != key) {
       while (this.hashTable[hashCode]) {
         this.rehashElements();
-        console.log("rehash taken");
       }
     }
     this.hashTable[hashCode] = { key, value };
     if (this.length() / this.tableSize >= 0.75) {
       this.rehashElements();
-      console.log("rehash size");
     }
   }
 
@@ -117,12 +115,12 @@ class HashMap {
 }
 
 const Names = new HashMap();
-Names.set("Ben", "Long");
-Names.set("Pauline", "Nguyen");
-Names.set("Eric", "Nguyen");
-Names.set("Jeffrey", "Nguyen");
-Names.set("Zach", "Wrong");
-Names.set("Annie", "Osman");
-Names.set("Steve", "Osman");
+Names.set('Ben', 'Long');
+Names.set('Pauline', 'Nguyen');
+Names.set('Eric', 'Nguyen');
+Names.set('Jeffrey', 'Nguyen');
+Names.set('Zach', 'Wrong');
+Names.set('Annie', 'Osman');
+Names.set('Steve', 'Osman');
 console.log(Names.hashTable);
-console.log(Names.get("Steve"));
+console.log(Names.get('Steve'));
